@@ -9,6 +9,8 @@ namespace Discord_GPT_Bot.Commands
     public class GptCommand : BaseCommandModule
     {
 
+        // Este comando informa  todo lo que se puede realizar a través del bot
+
         [Command("help")]
         public async Task AyudaGptCommand(CommandContext ctx)
         {
@@ -28,37 +30,56 @@ namespace Discord_GPT_Bot.Commands
 
             await ctx.Channel.SendMessageAsync(embed: help);
         }
+
+        // Comando para enviar consultas al chatGPT
         
         [Command("chatGpt")]
-        public async Task ChatGptCommand(CommandContext ctx, params string[] Question)
+        public async Task ChatGptCommand(CommandContext ctx, params string[] Question) // Params string[] lo utilice simplemente para evitar el uso de comillas en el envío del parametro
         {
+            // Instancia la clase
             var chatgpt = new ChatGpt();
+
+            // Realiza la solicitud
             string response = await chatgpt.ResponseGenerateChatGpt(string.Join(" ", Question));
+
+            // El bot envía el resultado, en el canal que el usuario realizo el uso del comando
             await ctx.Channel.SendMessageAsync(response);
 
         }
-        [Command("imageGpt")]
 
+
+        // Comando para solicitar una imagen a través de un texto
+
+        [Command("imageGpt")]
         public async Task ImageGptCommand(CommandContext ctx, params string[] Question)
         {
+            
             var chatgpt = new ChatGpt();
             string linkImage = await chatgpt.ImageGenerateChatGpt(string.Join(" ", Question));
+
+            // Envía un link directamente como respuesta, discord automáticamente lo adapta
             await ctx.Channel.SendMessageAsync(linkImage);
 
         }
+
+        // Comando para solicitar el texto que hay en un audio
 
         [Command("AudioGpt")]
         public async Task AudioGptCommand(CommandContext ctx)
         {     
 
             var chatGpt = new ChatGpt();
+
+            // Obtención del nombre del archivo 
             string nombreArchivo =  ctx.Message.Attachments[0].FileName.ToString();
 
 
-            // Verifica que al extension del archivo sea la correcta (.wav,.mp3 o .m4a)
+            // Verifica que la extensión del archivo sea la correcta (.wav,.mp3 o .m4a)
             if (chatGpt.CheckedDocumentExtension(nombreArchivo))
             {
+                //Obtiene el link en el cual discord tiene alojado el archivo 
                 string url = ctx.Message.Attachments[0].Url.ToString();
+
 
                 string response = await chatGpt.AudioTextGenerate(url, nombreArchivo);
 
@@ -74,6 +95,7 @@ namespace Discord_GPT_Bot.Commands
             
         }
 
+        // Comando que informa los lenguajes disponibles para que el GPT pueda transcribir 
 
         [Command("audioGptLenguajes")]
 

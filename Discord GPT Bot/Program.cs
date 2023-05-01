@@ -8,6 +8,7 @@ namespace Discord_GPT_Bot
 {
     internal class Program
     {
+        // Ejecución del bot
         static void Main()
         {
             var bot = new Bot();

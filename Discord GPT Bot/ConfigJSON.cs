@@ -7,16 +7,17 @@ using System.Threading.Tasks;
 
 namespace Discord_GPT_Bot
 {
+    // Configuracion de las propiedades para el archibo config.json
     internal struct ConfigJSON
     {
-        [JsonProperty("TokenD")]
+        [JsonProperty("TokenD")] // api key del bot de discord
         public string Token { get; private set; }
 
-        [JsonProperty("prefix")]
+        [JsonProperty("prefix")] // Prefijo que se quiere utilizar para la lectura del bot 
 
         public string Prefix { get; private set; }
 
-        [JsonProperty("ApiChatGPT")]
+        [JsonProperty("ApiChatGPT")] // api key de GPT
         public string ApiChatGPT { get; private set; }
 
     }
