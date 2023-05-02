@@ -54,6 +54,7 @@ namespace Discord_GPT_Bot.Commands
         public async Task ImageGptCommand(CommandContext ctx, params string[] Question)
         {
             
+
             var chatgpt = new ChatGpt();
             string linkImage = await chatgpt.ImageGenerateChatGpt(string.Join(" ", Question));
 
@@ -66,7 +67,8 @@ namespace Discord_GPT_Bot.Commands
 
         [Command("AudioGpt")]
         public async Task AudioGptCommand(CommandContext ctx)
-        {     
+        {
+            await ctx.Channel.SendMessageAsync("Se esta procesando el audio, puede demorar unos segundos..");
 
             var chatGpt = new ChatGpt();
 
